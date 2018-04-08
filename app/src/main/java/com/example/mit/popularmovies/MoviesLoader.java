@@ -5,25 +5,22 @@ import android.content.Context;
 
 import java.util.List;
 
-/**
- * Created by mit on 03.04.2018.
- */
+class MoviesLoader extends AsyncTaskLoader<List<Movie>> {
 
-public class MoviesLoader extends AsyncTaskLoader<List<String>> {
+    private String sortedBy;
 
-    public MoviesLoader(Context context) {
+    MoviesLoader(Context context, String sortedBy) {
         super(context);
+        this.sortedBy = sortedBy;
     }
 
     @Override
     protected void onStartLoading() {
         forceLoad();
-        // TODO: ProgressBard here
     }
 
     @Override
-    public List<String> loadInBackground() {
-        List<String> data = Utils.takeMovies();
-        return data;
+    public List<Movie> loadInBackground() {
+        return Utils.takeMovies(sortedBy);
     }
 }
